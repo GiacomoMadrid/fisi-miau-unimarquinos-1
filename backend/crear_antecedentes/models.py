@@ -72,7 +72,7 @@ class Certificado(models.Model):
         super(Certificado, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.tipo.nombre} - version: {self.version}. DNI: {self.historial.duenno.numeroDocumento}" 
+        return f"{self.tipo.nombre} - version: {self.version}. DNI: {self.historial.duenno.numeroDocumento} - {self.historial.duenno.primerApellido} {self.historial.duenno.segundoApellido}, {self.historial.duenno.prenombres}" 
 
 
 class Antecedente(models.Model):

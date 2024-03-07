@@ -1,1 +1,7 @@
-acá va el backend
+virtualenv venv
+.\venv\Scripts\activate
+pip install django
+pip install djangorestframework
+pip install markdown 
+pip install django-filter
+pip install django-cors-headers
