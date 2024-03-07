@@ -1,0 +1,95 @@
+
+
+
+.contentContainer{
+    padding: 3% 9%;
+    height: 100%;
+}
+.content{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+
+
+.imgContainer{
+    background-color: rgb(191, 9, 9,0.02);
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border: 1px solid var(--rojo);
+    display: flex;
+    justify-content: center;
+    flex:1;
+    padding: 15.5% 3% 0% 3%;
+    
+
+}
+.imgContainer img{
+    height: 103.5%;
+}
+
+
+
+.formContainer{
+    border-right: 1px solid var(--gris);
+    border-bottom: 1px solid var(--gris);
+    border-top-right-radius: 25px;
+    width: 100%;
+    flex:1.4;
+}
+.backgroundDecoration{
+    background-color: var(--rojo);
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    height: 7.5%;
+}
+
+
+
+.formContainer form{
+    display: flex;
+    flex-direction: column;
+    padding: 6% 9%;
+}
+form h1{
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 50px;
+    padding: 0% 30%;
+    margin-bottom: 8%;
+}
+form input{
+    padding: 3% 3% 3% 2%;
+    font-size: 1.2em;
+    border: 1px solid var(--gris);
+    margin-bottom: 3%;
+}
+form input::placeholder{
+    color: var(--gris);
+}
+.loginButtom{
+    margin-top: 9%;
+    align-self: flex-end;
+    font-size: 1.2em;
+    border: 1px solid var(--rojo);
+    border-radius: 25px;
+    padding: 1.1% 11%;
+    background-color:transparent;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.loginButtom:hover{
+    background-color: var(--rojo);
+    color: white;
+}
+
+
+
+
+
+
+
+
+

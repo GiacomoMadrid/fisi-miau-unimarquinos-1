@@ -1,0 +1,38 @@
+.certificadoContainer{
+    padding-bottom: 3.5%;
+}
+.certificado{
+    width: 100%;
+    position: relative;
+    border: 1px solid black;
+    padding: 3.5% 7% ;
+}
+
+.decoration{
+    position:absolute;
+    right: -10px;
+    top:-5px;
+}
+h1{
+    text-transform: uppercase;
+}
+
+
+.datosContainer{
+    margin-top: 3.5%;
+    display: flex;
+}
+.datos{
+    flex: 3;   
+}
+.userImageContainer{
+    flex: 2;
+    display: flex;
+    justify-content: end;
+
+}
+.userImageContainer img{
+    width: 100%;
+    height: 250px;
+    width: 250px;
+}

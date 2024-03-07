@@ -1,0 +1,7 @@
+.sideBarContainer{
+    left: 0;
+    height: 100%;
+    position: fixed;
+    background-color: var(--celeste);
+    width: 12%;
+}

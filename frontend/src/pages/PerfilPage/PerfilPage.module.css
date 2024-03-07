@@ -1,0 +1,21 @@
+.contentContainer{
+    padding-left: 12%;
+    padding-top: 3%;
+}
+
+.fotoPerfil{
+    background-color: #edf0f4;
+    padding: 3% 0%;
+    text-align: center;
+    margin-bottom: 3%;
+}
+.fotoPerfil img{
+    height: 12em;
+}
+
+.datos{
+    padding: 0% 2%;
+}
+p span{
+    background-color: var(--gris-claro);
+}
