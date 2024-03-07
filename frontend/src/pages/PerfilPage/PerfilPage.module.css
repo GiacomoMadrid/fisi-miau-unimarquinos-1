@@ -1,5 +1,5 @@
 .contentContainer{
-    padding-left: 12%;
+    padding-left: 9%;
     padding-top: 3%;
 }
 
@@ -14,8 +14,13 @@
 }
 
 .datos{
-    padding: 0% 2%;
+    text-align: center;
+}
+.datos p{
+    margin-bottom: 0.5%;
 }
 p span{
     background-color: var(--gris-claro);
+    font-size: 1.2em;
+    margin-right: 2%;
 }

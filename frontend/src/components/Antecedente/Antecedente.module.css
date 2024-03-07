@@ -24,10 +24,10 @@
     border-bottom: 1px solid black;
 }
 
-.tipoAntecedente{
+.antecedenteContainer .tipoAntecedente{
     color: red;
     font-weight: bold;
-    margin-bottom: 2%;
+    margin-bottom: 4%;
 }
 
 
@@ -39,6 +39,13 @@
 }
 .datos{
     flex: 3;   
+}
+.antecedenteContainer span{
+    background-color: white;
+    margin-right: 2%;
+}
+.antecedenteContainer p{
+    margin-bottom: 2%;
 }
 .userImageContainer{
     flex: 2;

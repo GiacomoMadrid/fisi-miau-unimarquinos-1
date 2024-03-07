@@ -20,13 +20,13 @@ export function HomePage(){
             <div className={styles.contentContainer}>
 
                 <aside className={styles.sideBarContainer}>
-                    <div>Datos personales <input type="radio" name="tipoBusqueda"></input></div> 
+                    <div className={styles.tipoBusqueda}>Datos personales <input type="radio" name="tipoBusqueda"></input></div> 
                     <input type="text" placeholder="Primer apellido"></input>
                     <input type="text" placeholder="Segundo apellido"></input>
                     <input type="text" placeholder="Nombre"></input>
                     <input type="text" placeholder="DNI/Carnet de extranjería"></input>
 
-                    <div>Antecedentes<input type="radio" name="tipoBusqueda"></input></div> 
+                    <div className={styles.tipoBusqueda}>Antecedentes<input type="radio" name="tipoBusqueda"></input></div> 
                     <input type="text" placeholder="Departamento"></input>
                     <input type="text" placeholder="Provincia"></input>
                     <input type="text" placeholder="Distrito"></input>
@@ -47,7 +47,7 @@ export function HomePage(){
                         <Antecedente></Antecedente>
                         <Antecedente></Antecedente>
                         
-                        <Link to="/login"><p>Login</p></Link> 
+                        <Link to="/login"><p className={styles.loginButtom}>Login</p></Link> 
                     </div>
                           
                 </div>

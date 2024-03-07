@@ -13,18 +13,32 @@
     right: -10px;
     top:-5px;
 }
-h1{
+.fecha{
+    color: var(--gris);
+    margin-bottom: 1%;
+}
+.certificado h1{
     text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5em;
 }
 
 
 .datosContainer{
-    margin-top: 3.5%;
+    margin-top: 4.5%;
     display: flex;
 }
 .datos{
     flex: 3;   
 }
+.datos p{
+    margin-bottom: 4%;
+}
+.datos span{
+    margin-right: 2%;
+}
+
 .userImageContainer{
     flex: 2;
     display: flex;
@@ -35,4 +49,9 @@ h1{
     width: 100%;
     height: 250px;
     width: 250px;
+}
+
+
+.cambios{
+    color: var(--gris);
 }

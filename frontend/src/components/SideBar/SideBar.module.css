@@ -3,5 +3,34 @@
     height: 100%;
     position: fixed;
     background-color: var(--celeste);
-    width: 12%;
+    width: 9%;
+    display: flex;
+    flex-direction: column;
+
+    border-right: 2px solid black;
+}
+.sideBarContainer div{
+    justify-content: flex-start;
+    padding:11% 0;
+    display: flex;
+    font-size: 0.8em;
+}
+.sideBarContainer div:hover{
+    background-color: var(--azul);
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+
+    color: white;
+}
+
+.sideBarContainer div img:not(.firstImg){
+    margin-left: 3%;
+}
+.sideBarContainer :last-child{
+    margin-top: auto;
+}
+.sideBarContainer div span{
+    margin: auto auto;
+    display: flex;
+    text-align: center;
 }

@@ -14,15 +14,15 @@ export function Certificado() {
 
           <div className={styles.certificado}>
               <img className={styles.decoration}src={decoration}></img>
-              <p>fecha</p>
+              <p className={styles.fecha}>fecha</p>
               <h1>Certificado de antecedentes penales</h1>
 
               <div className={styles.datosContainer}>
                 <div className={styles.datos}>
-                  <p>DNI/Carnet de extranjería:72169219</p>
-                  <p>Primer apellido: Jara</p>
-                  <p>Segundo apellido: Espinoza</p>
-                  <p>Nombres: Angela Lucia</p>
+                  <p><span>DNI/Carnet de extranjería:</span>72169219</p>
+                  <p><span>Primer apellido:</span> Jara</p>
+                  <p><span>Segundo apellido:</span> Espinoza</p>
+                  <p><span>Nombres:</span> Angela Lucia</p>
                 </div>
 
                 <div className={styles.userImageContainer}><img src={userImage}></img></div>
@@ -31,7 +31,7 @@ export function Certificado() {
 
               <Antecedente></Antecedente>
               <Antecedente></Antecedente>
-              <p>Cambios realizados:aaaaaaaaaaaaaaa</p>
+              <p className={styles.cambios}>Cambios realizados:aaaaaaaaaaaaaaa</p>
           </div> 
 
         </div>

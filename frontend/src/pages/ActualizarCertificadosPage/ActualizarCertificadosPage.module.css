@@ -1,13 +1,77 @@
-.crearAntecedentesContainer{
-    padding-left: 12%;
+.actualizarCertificadoContainer{
+    padding-left: 9%;
+    padding-bottom: 3%;
 }
-
-.persona, .antecedente{
+.contenedorPersona ,.contenedorCertificado{
+    padding: 3% 16% 0% 16%;
+}
+.persona, .certificado{
     display: flex;
     flex-direction: column;
-    padding: 3% 18%;
+    padding: 4% 6%;
+    border: 1px solid var(--gris);
 }
-.crearAntecedentesContainer p{
+.actualizarCertificadoContainer p{
     font-size: 1.5em;
     font-weight: bold;
+    margin-bottom: 2%;
+}
+.actualizarCertificadoContainer textarea,select{
+    padding: 1%;
+    margin-bottom: 1%;
+}
+.actualizarCertificadoContainer input{
+    padding: 1%;
+}
+.actualizarCertificadoContainer input:not(.certificado){
+    margin-bottom: 1%;
+}
+
+
+
+
+.persona div{
+    display: flex;
+}
+.persona div input{
+    flex: 1;
+
+}
+.persona div div{
+    flex: 1;
+    display: flex;
+    justify-content: end;
+}
+.persona div div button{
+    padding: 1% 9%;
+    background-color: white;
+    color: var(--rojo);
+    transition: 1s;
+
+}
+.persona div div button:hover{
+    background-color: var(--gris);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+.buttons{
+    display: flex;
+    margin-top: 5%;
+}
+.buttons button{
+    flex: 1;
+    margin: 0 15%;
+    padding: 0.5% 0;
+    background-color: white;
+    color: var(--rojo);
+    transition: 1s;
+}
+.buttons button:hover{
+    background-color: var(--gris);
+    color: white;
+    border: none;
+    cursor: pointer;
 }

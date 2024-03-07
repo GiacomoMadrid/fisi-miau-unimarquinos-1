@@ -18,11 +18,11 @@ export function Antecedente() {
 
                   <div className={styles.datos}>
                     <p className={styles.tipoAntecedente}>Tipo Antecedente</p>
-                    <p>DNI/Carnet de extranjería:72169219</p>
-                    <p>Primer apellido: Jara</p>
-                    <p>Segundo apellido: Espinoza</p>
-                    <p>Nombres: Angela Lucia</p>
-                    <p>Descripción: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                    <p><span>DNI/Carnet de extranjería:</span>72169219</p>
+                    <p><span>Primer apellido:</span> Jara</p>
+                    <p><span>Segundo apellido:</span> Espinoza</p>
+                    <p><span>Nombres: </span>Angela Lucia</p>
+                    <p><span>Descripción:</span> aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
                   </div>
 
                   <div className={styles.userImageContainer}><img src={userImage}></img></div>

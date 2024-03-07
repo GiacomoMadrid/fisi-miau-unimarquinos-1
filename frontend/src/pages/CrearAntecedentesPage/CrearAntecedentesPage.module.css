@@ -1,13 +1,75 @@
 .crearAntecedentesContainer{
-    padding-left: 12%;
+    padding-left: 9%;
+    padding-bottom: 3%;
 }
-
+.contenedorPersona, .contenedorAntecedente{
+    padding: 3% 16% 0% 16%;
+    
+}   
 .persona, .antecedente{
     display: flex;
     flex-direction: column;
-    padding: 3% 18%;
+    padding: 4% 6%;
+    border: 1px solid var(--gris);
 }
+
 .crearAntecedentesContainer p{
     font-size: 1.5em;
     font-weight: bold;
+    margin-bottom: 2%;
+}
+.crearAntecedentesContainer input, textarea{
+    padding: 1%;
+}   
+.crearAntecedentesContainer textarea{
+    margin-bottom: 1%;
+    
+}
+.crearAntecedentesContainer input:not(.persona div input){
+    margin-bottom: 1%;
+    
+}
+
+
+.persona div{
+    display: flex;
+}
+.persona div input{
+    flex: 1;
+
+}
+.persona div div{
+    flex: 1;
+    display: flex;
+    justify-content: end;
+}
+.persona div div button{
+    padding: 1% 9%;
+    background-color: white;
+    color: var(--rojo);
+    transition: 1s;
+
+}
+.persona div div button:hover{
+    background-color: var(--gris);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+.crearButtom{
+    padding: 1% 0%;
+    margin: 5% 35% 0 35%;
+    background-color: white;
+    color: var(--rojo);
+    transition: 1s;
+    
+}
+.crearButtom:hover{
+    background-color: var(--gris);
+    color: white;
+    border: none;
+    cursor: pointer;
 }

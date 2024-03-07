@@ -16,27 +16,27 @@ export function SideBar() {
       <>
         <aside className={styles.sideBarContainer}>
           <Link to="/perfil">
-            <div>
-              <img src={perfilIcon}></img>
+            <div className={styles.firstDiv}>
+              <img className={styles.firstImg} src={perfilIcon}></img>
               <span>Perfil</span>
             </div>
           </Link>
           <Link to="/antecedentes-registrados">
             <div>
                 <img src={antecedentesRegistradosIcon}></img>
-                <span>Antecedentes registrados</span>
+                <span>Antecedentes <br/>registrados</span>
             </div>
           </Link>            
           <Link to="/crear-antecedentes">
             <div>
               <img src={crearAntecedenteIcon}></img>
-              <span>Crear Antecedentes</span>
+              <span>Crear <br/>Antecedente</span>
             </div>
           </Link>
           <Link to="/actualizar-certificados">
             <div>
               <img src={actualizarCertificadosIcon}></img>
-              <span>Actualizar Certificados</span>
+              <span>Actualizar <br/>Certificado</span>
             </div>
           </Link>
           <Link to="/buscar">
@@ -46,7 +46,7 @@ export function SideBar() {
             </div>
           </Link>
           <Link to="/">
-            <div>
+            <div className={styles.lastDiv}>
               <img src={salirIcon}></img>
             </div>
           </Link>
