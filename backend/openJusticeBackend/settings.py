@@ -128,6 +128,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#from crear_persona.models import Usuario
+AUTH_USER_MODEL = 'crear_persona.Usuario'
 
 #CORS:
 CORS_ALLOWED_ORIGINS = [
