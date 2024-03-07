@@ -89,7 +89,8 @@ class Antecedente(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:              
             copia_certificado = self.certificado
-            copia_certificado.id = None
+            copia_certificado.id = None 
+            copia_certificado.cambios=self.nombre
             copia_certificado.save()
             self.certificado = copia_certificado
 
