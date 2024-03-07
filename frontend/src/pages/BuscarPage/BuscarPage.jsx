@@ -1,6 +1,7 @@
 import {Helmet} from "react-helmet";
 
 import styles from "./BuscarPage.module.css";
+import {HomePage} from "../HomePage/HomePage";
 
 export function BuscarPage() {
 
@@ -10,7 +11,10 @@ export function BuscarPage() {
         <Helmet>
                   <title>Buscar</title>
         </Helmet>
-        a
+        <div className={styles.HomePageContainer}>
+          <HomePage></HomePage>
+        </div>
+        
       </>
     )
 }

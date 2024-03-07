@@ -2,6 +2,7 @@ import {Helmet} from "react-helmet";
 
 import styles from "./PerfilPage.module.css";
 import userImage from "../../components/Certificado/images/userImage.svg";
+import logo from "../LoginPage/images/logo.png";
 
 export function PerfilPage() {
 
@@ -26,6 +27,7 @@ export function PerfilPage() {
                 <p><span>Cargo:</span> Jueza</p>
                 <p><span>Estado:</span> Activo</p>
               </div>
+              <img className={styles.logo} src={logo}></img>
           </div>
         </div>
       </>

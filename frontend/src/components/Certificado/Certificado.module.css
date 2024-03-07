@@ -6,6 +6,7 @@
     position: relative;
     border: 1px solid black;
     padding: 3.5% 7% ;
+    background-image: url(./images/marcaDeAgua.png);
 }
 
 .decoration{

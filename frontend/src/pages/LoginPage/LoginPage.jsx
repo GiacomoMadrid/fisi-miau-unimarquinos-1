@@ -2,6 +2,7 @@ import {Helmet} from "react-helmet";
 import {Link} from "react-router-dom";
 
 import styles from "./LoginPage.module.css";
+import Logo from "./images/logo.png";
 
 export function LoginPage() {
 
@@ -16,7 +17,7 @@ export function LoginPage() {
                 <section className={styles.content}>
 
                     <div className={styles.imgContainer}>
-                        <img />
+                        <img src={Logo}/>
                     </div>
 
                     <div className={styles.formContainer}>
@@ -25,7 +26,7 @@ export function LoginPage() {
                         </div>
 
                         <form >
-                            <h1>User login</h1>
+                            <h1>Login</h1>
 
                             <input type="text" 
                             placeholder="Username">
@@ -41,6 +42,8 @@ export function LoginPage() {
                     </div>
                 </section>
             </section>
+            <Link to="/"><p className={styles.volver}>Volver</p></Link>
+            
       </>
     )
 }

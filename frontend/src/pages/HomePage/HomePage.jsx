@@ -44,6 +44,7 @@ export function HomePage(){
                     
                     <div className={styles.items}>
                         <Certificado></Certificado>
+                        <Certificado></Certificado>
                         <Antecedente></Antecedente>
                         <Antecedente></Antecedente>
                         

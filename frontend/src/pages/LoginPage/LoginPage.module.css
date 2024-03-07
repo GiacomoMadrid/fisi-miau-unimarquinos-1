@@ -4,6 +4,7 @@
 .contentContainer{
     padding: 3% 9%;
     height: 100%;
+    position: relative;
 }
 .content{
     height: 100%;
@@ -15,7 +16,7 @@
 
 
 .imgContainer{
-    background-color: rgb(191, 9, 9,0.02);
+    background-color: white;
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
     border: 1px solid var(--rojo);
@@ -23,11 +24,13 @@
     justify-content: center;
     flex:1;
     padding: 15.5% 3% 0% 3%;
+    align-items: center;
     
 
 }
 .imgContainer img{
     height: 103.5%;
+    margin-bottom: 40%;
 }
 
 
@@ -51,14 +54,14 @@
 .formContainer form{
     display: flex;
     flex-direction: column;
-    padding: 6% 9%;
+    padding: 9% 9%;
 }
 form h1{
     text-transform: uppercase;
     text-align: center;
     font-size: 50px;
     padding: 0% 30%;
-    margin-bottom: 8%;
+    margin-bottom: 14%;
 }
 form input{
     padding: 3% 3% 3% 2%;
@@ -88,7 +91,13 @@ form input::placeholder{
 
 
 
-
+.volver{
+    position: absolute;
+    bottom:2%;
+    left: 50%;
+    text-decoration: underline;
+    color: var(--gris);
+}
 
 
 
