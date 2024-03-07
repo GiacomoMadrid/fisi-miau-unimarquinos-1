@@ -45,31 +45,58 @@ class TipoCertificado(models.Model):
 
 class HistorialCertificado(models.Model):
     duenno = models.ForeignKey(Persona, on_delete=models.CASCADE)
+    tipo = models.ForeignKey(TipoCertificado, on_delete=models.CASCADE, null = True)
+    num_certificados = models.IntegerField(default=0)
 
+    def __str__(self):
+        return f" {self.duenno.numeroDocumento}: Historial de {self.tipo.nombre} - {self.duenno.primerApellido}, {self.duenno.segundoApellido}, {self.duenno.prenombres}" 
 
 class Certificado(models.Model):
-    tipo = models.ForeignKey(TipoCertificado, on_delete=models.CASCADE)    
+    tipo = models.ForeignKey(TipoCertificado, on_delete=models.CASCADE)
     version = models.IntegerField(default=1)
     cambios = models.TextField()
     historial = models.ForeignKey(HistorialCertificado, on_delete=models.CASCADE)
 
+    def save(self, *args, **kwargs):
+        if not self.id: 
+            self.historial.num_certificados += 1
+            self.historial.save()            
+            ultima_version = Certificado.objects.filter(historial=self.historial).order_by('-version').first()
+
+            if ultima_version:
+                self.version = ultima_version.version + 1
+
+            else:
+                self.version = 1 
+
+        super(Certificado, self).save(*args, **kwargs)
+
     def __str__(self):
-        return self.tipo.nombre + " - version:" + self.version+ ". "+self.historial.duenno.numeroDocumento 
+        return f"{self.tipo.nombre} - version: {self.version}. DNI: {self.historial.duenno.numeroDocumento}" 
 
 
 class Antecedente(models.Model):
     tipo = models.ForeignKey(TipoAntecedente, on_delete=models.CASCADE)
     certificado = models.ForeignKey(Certificado, on_delete=models.CASCADE)
-    nombre = models.CharField(max_length = 50)
+    nombre = models.CharField(max_length=50)
     descripcion = models.TextField()
     fechaRegistro = models.DateTimeField()
-    departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
-    provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE)
-    distrito = models.ForeignKey(Distrito, on_delete=models.CASCADE)
-    usuarioRegistrador = models.ForeignKey(Usuario, on_delete=models.CASCADE)    
+    departamento = models.ForeignKey('Departamento', on_delete=models.CASCADE)
+    provincia = models.ForeignKey('Provincia', on_delete=models.CASCADE)
+    distrito = models.ForeignKey('Distrito', on_delete=models.CASCADE)
+    usuarioRegistrador = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        if not self.id:              
+            copia_certificado = self.certificado
+            copia_certificado.id = None
+            copia_certificado.save()
+            self.certificado = copia_certificado
+
+        super(Antecedente, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.tipo.nombre + " - " + self.certificado.historial.duenno.primerApellido+ " "+self.certificado.historial.duenno.segundoApellido + ", " +self.certificado.historial.duenno.prenombres 
+        return f"{self.tipo.nombre} - {self.certificado.historial.duenno.primerApellido} {self.certificado.historial.duenno.segundoApellido}, {self.certificado.historial.duenno.prenombres}" 
 
 
 

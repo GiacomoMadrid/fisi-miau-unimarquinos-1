@@ -42,7 +42,7 @@ class Persona(models.Model):
 
 class Usuario(AbstractUser):
     cargo = models.CharField(max_length = 30)
-    datos = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True)
+    datos = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True, unique=True)
     telefono = models.CharField(max_length=9, null=True, blank =True, validators=[RegexValidator(r'^\d{9}$')])
     direccion = models.CharField(max_length=255, null=True, blank =True)
 
