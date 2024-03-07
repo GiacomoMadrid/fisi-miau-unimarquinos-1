@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import AbstractUser
 
 def validate_estado_civil(value):
     if value.upper() not in ['S', 'C', 'V', 'D']:
@@ -39,11 +40,31 @@ class Persona(models.Model):
             return self.numeroDocumento+ ": "+self.primerApellido + " "+self.segundoApellido + ", " +self.prenombres 
     
 
-class Usuario(models.Model):
+class Usuario(AbstractUser):
     cargo = models.CharField(max_length = 30)
-    datos = models.ForeignKey(Persona, on_delete=models.CASCADE)
-    
+    datos = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True, unique=True)
+    telefono = models.CharField(max_length=9, null=True, blank =True, validators=[RegexValidator(r'^\d{9}$')])
+    direccion = models.CharField(max_length=255, null=True, blank =True)
+
     def __str__(self):
-            return self.datos.primerApellido + " "+self.datos.segundoApellido + ", " +self.datos.prenombres + " - " + self.cargo
+        if self.datos:
+            return f"{self.datos.primerApellido} {self.datos.segundoApellido}, {self.datos.prenombres} - {self.cargo}"
+        else:
+            return f"User {self.username} - {self.cargo}"
+
+    @property
+    def first_name(self):
+        if self.datos:
+            return self.datos.prenombres
+        else:
+            return self.username
+
+    @property
+    def last_name(self):
+        if self.datos:
+            return f"{self.datos.primerApellido} {self.datos.segundoApellido}"
+        else:
+            return ""
     
+
     

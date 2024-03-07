@@ -1,14 +1,1 @@
-virtualenv venv
-.\venv\Scripts\activate
-pip install django
-pip install djangorestframework
-pip install markdown 
-pip install django-filter
-pip install django-cors-headers
-
-pip install dj-database-url
-pip install psycopg2-binary
-pip install whitenoise brotli
-chmod a+x build.sh
-pip install gunicorn uvicorn
-pip freeze > requirements.txt
+acá va el backend
