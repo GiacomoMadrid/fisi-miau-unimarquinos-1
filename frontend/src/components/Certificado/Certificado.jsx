@@ -31,7 +31,8 @@ export function Certificado() {
 
               <Antecedente></Antecedente>
               <Antecedente></Antecedente>
-              <p className={styles.cambios}>Cambios realizados:aaaaaaaaaaaaaaa</p>
+              <p className={styles.infoAdicional}>Cambios realizados:aaaaaaaaaaaaaaa</p>
+              <p className={styles.infoAdicional}>Autor: Cargo Nombre</p>
           </div> 
 
         </div>

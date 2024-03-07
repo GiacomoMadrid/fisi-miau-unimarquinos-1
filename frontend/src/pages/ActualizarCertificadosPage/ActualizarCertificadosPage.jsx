@@ -20,7 +20,7 @@ export function ActualizarCertificadosPage() {
               <input type="text" placeholder="Segundo apellido"></input>
               <input type="text" placeholder="Nombres"></input>
               <div>
-                    <input className={styles.certificado}type="text" placeholder="Certificado"></input>
+                    <input className={styles.certificado}type="text" placeholder="Certificado" disabled></input>
                     <div>
                       <button className={styles.buscarButtom}>Buscar</button>
                     </div>
@@ -37,9 +37,9 @@ export function ActualizarCertificadosPage() {
                 <option>Antecedente2</option>
               </select>
               <input type="text" placeholder="Codigo"></input>
-              <input type="text" placeholder="Tipo"></input>
+              <input type="text" placeholder="Tipo" disabled></input>
               <input type="text" placeholder="Título"></input>
-              <input type="datetime-local" ></input>
+              <input type="datetime-local" disabled></input>
               <textarea type="text" placeholder="Descripción"></textarea>
               <textarea type="text" placeholder="Cambios realizados"></textarea>
               <div className={styles.buttons}><button>Eliminar</button><button>Actualizar</button></div>

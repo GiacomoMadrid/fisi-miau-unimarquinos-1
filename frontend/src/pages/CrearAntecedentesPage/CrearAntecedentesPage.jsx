@@ -1,8 +1,25 @@
 import {Helmet} from "react-helmet";
+import { useForm } from "react-hook-form";
 
 import styles from "./CrearAntecedentesPage.module.css";
 
+
 export function CrearAntecedentesPage() {
+
+    const { register: registerFormPersona, handleSubmit: handleSubmitFormPersona } = useForm();
+    const { register: registerFormAntecedente, handleSubmit: handleSubmitFormAntecedente } = useForm();
+
+
+
+    const onSubmitFormPersona=handleSubmitFormPersona(data=>{
+      console.log(data);
+    });
+    const onSubmitFormAntecedente=handleSubmitFormAntecedente(data=>{
+      console.log(data);
+      console.log("a");
+    });
+
+
 
 
     return (
@@ -15,14 +32,14 @@ export function CrearAntecedentesPage() {
           <div className={styles.contenedorPersona}>
             <div className={styles.persona}>
               <p>Persona</p>
-              <input type="text" placeholder="DNI/Carnet extranjería"></input>
-              <input type="text" placeholder="Primer apellido"></input>
-              <input type="text" placeholder="Segundo apellido"></input>
-              <input type="text" placeholder="Nombres"></input>
+              <input type="text" placeholder="DNI/Carnet extranjería" {...registerFormPersona("DNIcarnetextranjeria",{required:true})}></input>
+              <input type="text" placeholder="Primer apellido" {...registerFormPersona("primerApellido",{required:true})}></input>
+              <input type="text" placeholder="Segundo apellido" {...registerFormPersona("segundoApellido",{required:true})}></input>
+              <input type="text" placeholder="Nombres" {...registerFormPersona("nombre",{required:true})}></input>
               <div>
-                    <input type="text" placeholder="Certificado"></input>
+                    <input type="text" placeholder="Certificado" disabled></input>
                     <div>
-                      <button className={styles.buscarButtom}>Buscar</button>
+                      <button className={styles.buscarButtom} onClick={onSubmitFormPersona}>Buscar</button>
                     </div>
                     
               </div>
@@ -33,12 +50,12 @@ export function CrearAntecedentesPage() {
           <div className={styles.contenedorAntecedente}>
             <div className={styles.antecedente}>
               <p>Antecedente</p>
-              <input type="text" placeholder="Código"></input>
-              <input type="text" placeholder="Tipo"></input>
-              <input type="text" placeholder="Título"></input>
-              <input type="datetime-local" ></input>
-              <textarea type="text" placeholder="Descripción"></textarea>
-              <button className={styles.crearButtom} >Crear</button>
+              <input type="text" placeholder="Código" {...registerFormAntecedente("codigo",{required:true})}></input>
+              <input type="text" placeholder="Tipo" disabled {...registerFormAntecedente("tipo")}></input>
+              <input type="text" placeholder="Título" {...registerFormAntecedente("titulo",{required:true})}></input>
+              <input type="datetime-local" disabled {...registerFormAntecedente("fechahora")}></input>
+              <textarea type="text" placeholder="Descripción" {...registerFormAntecedente("descripcion",{required:true})}></textarea>
+              <button className={styles.crearButtom} onClick={onSubmitFormAntecedente} >Crear</button>
             </div>
           </div>
           

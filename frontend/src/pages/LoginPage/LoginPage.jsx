@@ -1,10 +1,18 @@
 import {Helmet} from "react-helmet";
 import {Link} from "react-router-dom";
+import {useForm} from "react-hook-form";
 
 import styles from "./LoginPage.module.css";
 import Logo from "./images/logo.png";
 
 export function LoginPage() {
+
+    const {register,handleSubmit}=useForm();
+
+    const onSubmit=handleSubmit(data=>{
+        console.log(data);
+    });
+
 
 
     return (
@@ -25,15 +33,17 @@ export function LoginPage() {
                             
                         </div>
 
-                        <form >
+                        <form onSubmit={onSubmit}>
                             <h1>Login</h1>
 
                             <input type="text" 
-                            placeholder="Username">
+                            placeholder="Username"
+                            {...register("username",{required:true})}>
                             </input> 
 
                             <input type="password" 
-                            placeholder="Password">
+                            placeholder="Password"
+                            {...register("password",{required:true})}>
                             </input> 
 
                             <Link to="/antecedentes-registrados"><button type="submit" className={styles.loginButtom}>Login</button></Link>
