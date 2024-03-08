@@ -133,6 +133,6 @@ AUTH_USER_MODEL = 'crear_persona.Usuario'
 
 #CORS:
 CORS_ALLOWED_ORIGINS = [
-
+    "http://localhost:5173",
     
 ]

@@ -8,6 +8,9 @@ import styles from "./HomePage.module.css";
 
 import {Certificado} from "../../components/Certificado/Certificado";
 import {Antecedente} from "../../components/Antecedente/Antecedente";
+import {getAllAntecedentes} from "../../api/api.js";
+import {getAllCertificados} from "../../api/api.js";
+import axios from "axios";
 
 
 export function HomePage(){
@@ -18,6 +21,9 @@ export function HomePage(){
     const [datosDisabled,setDatosDisabled]=useState([]);
     const [antecedentesDisabled,setAntecedentesDisabled]=useState([]);
     const [selectedOption, setSelectedOption] = useState("datosPersonales");
+
+    const [antecedentes,setAntecedentes]=useState([]);
+    const [certificados,setCertificados]=useState([]);
 
 
     useEffect(()=>{
@@ -31,6 +37,23 @@ export function HomePage(){
                 setDatosDisabled(false);
             }
         }
+
+        async function fetchData() {
+            try {
+                const antecedentesResponse = await getAllAntecedentes();
+                setAntecedentes(antecedentesResponse);
+                console.log(antecedentesResponse);
+
+                const certificadosResponse = await getAllCertificados();
+                setCertificados(certificadosResponse.data);
+                console.log(certificadosResponse);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                // Handle error
+            }
+        }
+
+        fetchData();
         checkTipoBusqueda();
     },[selectedOption]);
 
