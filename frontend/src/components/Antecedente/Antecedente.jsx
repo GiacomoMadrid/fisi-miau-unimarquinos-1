@@ -16,7 +16,7 @@ export function Antecedente({antecedente}) {
                 <div className={styles.datosContainer}>
 
                   <div className={styles.datos}>
-                    <p className={styles.tipoAntecedente}>Tipo Antecedente</p>
+                    <p className={styles.tipoAntecedente}>Antecedente penal</p>
                     <p><span>DNI/Carnet de extranjería:</span>72169219</p>
                     <p><span>Primer apellido:</span> Jara</p>
                     <p><span>Segundo apellido:</span> Espinoza</p>
