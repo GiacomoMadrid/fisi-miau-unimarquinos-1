@@ -2,16 +2,16 @@ import axios from "axios";
 
 
 const usuarioApi=axios.create({
-    baseURL:"https://deploy-prueba-a495.onrender.com/api/Usuario/",
+    baseURL:"https://127.0.0.1:8000/api/Usuario/",
 });
 const paisApi=axios.create({
-    baseURL:"https://deploy-prueba-a495.onrender.com/api/Pais/",
+    baseURL:"https://127.0.0.1:8000/api/Pais/",
 });
 const nacionalidadApi=axios.create({
-    baseURL:"https://deploy-prueba-a495.onrender.com/api/Nacionalidad/",
+    baseURL:"https://127.0.0.1:8000/api/Nacionalidad/",
 });
 const personaApi=axios.create({
-    baseURL:"https://deploy-prueba-a495.onrender.com/api/Persona/",
+    baseURL:"http://127.0.0.1:8000/api/Persona/",
 });
 
 
@@ -56,28 +56,28 @@ export const updatePersona=(id,persona)=>personaApi.put(`/${id}/`,persona);
 
 
 const certificadoApi=axios.create({
-    baseURL:"https://deploy-prueba-a495.onrender.com/antecedentes/Certificado/",
+    baseURL:"http://127.0.0.1:8000/antecedentes/Certificado/",
 });
 const antecedenteApi=axios.create({
     baseURL:"http://127.0.0.1:8000/antecedentes/Antecedente/",
 });
 const departamentoApi=axios.create({
-    baseURL:"https://deploy-prueba-a495.onrender.com/antecedentes/Departamento/",
+    baseURL:"https://127.0.0.1:8000/antecedentes/Departamento/",
 });
 const provinciaApi=axios.create({
-    baseURL:"https://deploy-prueba-a495.onrender.com/antecedentes/Provincia/",
+    baseURL:"https://127.0.0.1:8000/antecedentes/Provincia/",
 });
 const distritoApi=axios.create({
-    baseURL:"https://deploy-prueba-a495.onrender.com/antecedentes/Distrito/",
+    baseURL:"https://127.0.0.1:8000/antecedentes/Distrito/",
 });
 const tipoAntecedenteApi=axios.create({
-    baseURL:"https://deploy-prueba-a495.onrender.com/antecedentes/TipoAntecedente/",
+    baseURL:"http://127.0.0.1:8000/antecedentes/TipoAntecedente/",
 });
 const tipoCertificadoApi=axios.create({
-    baseURL:"https://deploy-prueba-a495.onrender.com/antecedentes/TipoCertificado/",
+    baseURL:"http://127.0.0.1:8000/antecedentes/TipoCertificado/",
 });
 const historialCertificadoApi=axios.create({
-    baseURL:"https://deploy-prueba-a495.onrender.com/antecedentes/HistorialCertificado/",
+    baseURL:"http://127.0.0.1:8000/antecedentes/HistorialCertificado/",
 });
 
 
@@ -96,8 +96,8 @@ export const getAntecedente=(id)=>antecedenteApi.get(`/${id}/`);
 export const getDepartamento=(id)=>departamentoApi.get(`/${id}/`);
 export const getProvincia=(id)=>provinciaApi.get(`/${id}/`);
 export const getDistrito=(id)=>distritoApi.get(`/${id}/`);
-export const getTipoAntecedente=(id)=>antecedenteApi.get(`/${id}/`);
-export const getTipoCertificado=(id)=>certificadoApi.get(`/${id}/`);
+export const getTipoAntecedente=(id)=>tipoAntecedenteApi.get(`/${id}/`);
+export const getTipoCertificado=(id)=>tipoCertificadoApi.get(`/${id}/`);
 export const getHistorialCertificado=(id)=>historialCertificadoApi.get(`/${id}/`);
 
 
@@ -116,8 +116,8 @@ export const deleteAntecedente=(id)=>antecedenteApi.delete(`/${id}/`);
 export const deleteDepartamento=(id)=>departamentoApi.delete(`/${id}/`);
 export const deleteProvincia=(id)=>provinciaApi.delete(`/${id}/`);
 export const deleteDistrito=(id)=>distritoApi.delete(`/${id}/`);
-export const deleteTipoAntecedente=(id)=>antecedenteApi.delete(`/${id}/`);
-export const deleteTipoCertificado=(id)=>certificadoApi.delete(`/${id}/`);
+export const deleteTipoAntecedente=(id)=>tipoAntecedenteApi.delete(`/${id}/`);
+export const deleteTipoCertificado=(id)=>tipoCertificadoApi.delete(`/${id}/`);
 export const deleteHistorialCertificado=(id)=>historialCertificadoApi.delete(`/${id}/`);
 
 
@@ -126,6 +126,6 @@ export const updateAntecedente=(id,antecedente)=>antecedenteApi.put(`/${id}/`,an
 export const updateDepartamento=(id,departamento)=>departamentoApi.put(`/${id}/`,departamento);
 export const updateProvincia=(id,provincia)=>provinciaApi.put(`/${id}/`,provincia);
 export const updateDistrito=(id,distrito)=>distritoApi.put(`/${id}/`,distrito);
-export const updateTipoAntecedente=(id,tipoAntecedente)=>antecedenteApi.put(`/${id}/`,tipoAntecedente);
+export const updateTipoAntecedente=(id,tipoAntecedente)=>tipoAntecedenteApi.put(`/${id}/`,tipoAntecedente);
 export const updateTipoCertificado=(id,tipoCertificado)=>certificadoApi.put(`/${id}/`,tipoCertificado);
 export const updateHistorialCertificado=(id,historialCertificado)=>historialCertificadoApi.put(`/${id}/`,historialCertificado);

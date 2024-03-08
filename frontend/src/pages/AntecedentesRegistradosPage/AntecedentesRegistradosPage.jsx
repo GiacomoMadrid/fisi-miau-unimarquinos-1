@@ -13,9 +13,6 @@ export function AntecedentesRegistradosPage() {
         </Helmet>
         <div className={styles.contentContainer}>
           <div className={styles.content}>
-           <Antecedente></Antecedente> 
-           <Antecedente></Antecedente> 
-           <Antecedente></Antecedente> 
           </div>
         </div>
       </>

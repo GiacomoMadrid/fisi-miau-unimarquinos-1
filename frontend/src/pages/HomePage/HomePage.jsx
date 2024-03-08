@@ -8,9 +8,8 @@ import styles from "./HomePage.module.css";
 
 import {Certificado} from "../../components/Certificado/Certificado";
 import {Antecedente} from "../../components/Antecedente/Antecedente";
-import {getAllAntecedentes} from "../../api/api.js";
-import {getAllCertificados} from "../../api/api.js";
-import axios from "axios";
+import {getAllAntecedentes,getAllCertificados,getAllTipoAntecedentes,getAllHistorialCertificados,getAllPersonas, getPersona} from "../../api/api.js";
+import {getCertificado,getHistorialCertificado} from "../../api/api.js";
 
 
 export function HomePage(){
@@ -21,9 +20,13 @@ export function HomePage(){
     const [datosDisabled,setDatosDisabled]=useState([]);
     const [antecedentesDisabled,setAntecedentesDisabled]=useState([]);
     const [selectedOption, setSelectedOption] = useState("datosPersonales");
+    const[elementosMostrados,setElementosMostrados]=useState([]);
 
     const [antecedentes,setAntecedentes]=useState([]);
     const [certificados,setCertificados]=useState([]);
+    const [tipoAntecedentes,setTipoAntecedentes]=useState([]);
+    const [historialCertificados,setHistorialCertificados]=useState([]);
+    const [personas,setPersonas]=useState([]);
 
 
     useEffect(()=>{
@@ -41,30 +44,67 @@ export function HomePage(){
         async function fetchData() {
             try {
                 const antecedentesResponse = await getAllAntecedentes();
-                setAntecedentes(antecedentesResponse);
-                console.log(antecedentesResponse);
+                setAntecedentes(antecedentesResponse.data);
 
                 const certificadosResponse = await getAllCertificados();
                 setCertificados(certificadosResponse.data);
-                console.log(certificadosResponse);
+
+                const tipoAntecedenteResponse=await getAllTipoAntecedentes();
+                setTipoAntecedentes(tipoAntecedenteResponse.data);
+
+                const historialCertificadosResponse=await getAllHistorialCertificados();
+                setHistorialCertificados(historialCertificadosResponse.data);
+
+                const personasResponse=await getAllPersonas();
+                setPersonas(personasResponse.data);
+
             } catch (error) {
                 console.error("Error fetching data:", error);
-                // Handle error
             }
         }
 
         fetchData();
         checkTipoBusqueda();
-    },[selectedOption]);
+        console.log(elementosMostrados);
+
+
+    },[selectedOption,elementosMostrados]);
 
     
     const onSubmitFormDatosPersonales=handleSubmitFormDatosPersonales(data=>{
+        const personasFiltradas = personas.filter(persona => {
+            return Object.entries(data).every(([key, value]) => {
+                if (value !== undefined) {
+                    return value === persona[key];
+                }
+                return true;
+            });
+        });
+
+        setElementosMostrados(certificados.filter(async (certificado)=>{
+            const historial=await getHistorialCertificado(certificado.historial);
+            const persona=await getPersona(historial.duenno);
+            return personasFiltradas.find(p => p === persona) !== undefined;
+        }));
         
-        console.log(data);
     });
-    const onSubmitFormAntecedente=handleSubmitFormAntecedente(data=>{
-        
-        console.log(data);
+
+    const onSubmitFormAntecedente = handleSubmitFormAntecedente(async (data) => {
+        const personasFiltradas = personas.filter(persona => {
+            return Object.entries(data).every(([key, value]) => {
+                return value !== undefined &&value === persona[key];
+            });
+        });
+        console.log(personasFiltradas);
+    
+        const elementosMostrados = await Promise.all(antecedentes.map(async (antecedente) => {
+            const certificado=await getCertificado(antecedente.certificado);
+            const historial = await getHistorialCertificado(certificado.historial);
+            const persona = await getPersona(historial.duenno);
+            return personasFiltradas.find(personaFiltrada => personaFiltrada.numeroDocumento === persona.numeroDocumento);
+        }));
+    
+        setElementosMostrados(elementosMostrados.filter(Boolean)); // Filter out any undefined elements
     });
 
 
@@ -81,7 +121,7 @@ export function HomePage(){
 
                 <aside className={styles.sideBarContainer}>
                     <div className={styles.tipoBusqueda}>Datos personales <input type="radio" name="tipoBusqueda" defaultChecked
-                    value="datosPersonales" {...registerFormDatosPersonales("tipoBusqueda")}
+                    value="datosPersonales" 
                     onChange={() => setSelectedOption("datosPersonales")}></input>
                     </div> 
                     <input type="text" 
@@ -99,19 +139,19 @@ export function HomePage(){
                     <input type="text" 
                     placeholder="Nombre"
                     disabled={datosDisabled}
-                    {...registerFormDatosPersonales("nombre")}
+                    {...registerFormDatosPersonales("prenombres")}
                     ></input>
 
                     <input type="text" 
                     placeholder="DNI/Carnet de extranjería"
                     disabled={datosDisabled}
-                    {...registerFormDatosPersonales("dni-carnetExtranjeria")}
+                    {...registerFormDatosPersonales("numeroDocumento")}
                     ></input>
 
 
 
                     <div className={styles.tipoBusqueda}>Antecedente<input type="radio" name="tipoBusqueda"
-                    value="antecedentes" {...registerFormAntecedente("tipoBusqueda")}
+                    value="antecedentes" 
                     onChange={() => setSelectedOption("antecedentes")}></input>
                     </div> 
                     <input type="text" 
@@ -160,10 +200,12 @@ export function HomePage(){
                     </header>
                     
                     <div className={styles.items}>
-                        <Certificado></Certificado>
-                        <Certificado></Certificado>
-                        <Antecedente></Antecedente>
-                        <Antecedente></Antecedente>
+                        {elementosMostrados&&elementosMostrados.map(elementoMostrado=>(
+                            selectedOption=="antecedentes"?<Antecedente key={elementoMostrado.id} antecedente={elementoMostrado}></Antecedente>
+                            :<Certificado key={elementoMostrado.id} elementoMostrado={elementoMostrado}></Certificado>
+                        
+                        ))}
+                        
                         
                         <Link to="/login"><p className={styles.loginButtom}>Login</p></Link> 
                     </div>
