@@ -71,20 +71,18 @@ export function HomePage(){
     },[selectedOption,elementosMostrados]);
 
     
-    const onSubmitFormDatosPersonales=handleSubmitFormDatosPersonales(data=>{
-        const personasFiltradas = personas.filter(persona => {
-            return Object.entries(data).every(([key, value]) => {
-                if (value !== undefined) {
-                    return value === persona[key];
-                }
-                return true;
-            });
-        });
-
+    const onSubmitFormDatosPersonales=handleSubmitFormDatosPersonales(async data=>{
+        
         setElementosMostrados(certificados.filter(async (certificado)=>{
-            const historial=await getHistorialCertificado(certificado.historial);
-            const persona=await getPersona(historial.duenno);
-            return personasFiltradas.find(p => p === persona) !== undefined;
+            if(certificado.tipo==1){
+                
+                return true;
+                console.log(certificado);
+            }
+            else{
+                return false;
+            }
+            
         }));
         
     });

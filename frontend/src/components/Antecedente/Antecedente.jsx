@@ -21,7 +21,7 @@ export function Antecedente({antecedente}) {
                     <p><span>Primer apellido:</span> Jara</p>
                     <p><span>Segundo apellido:</span> Espinoza</p>
                     <p><span>Nombres: </span>Angela Lucia</p>
-                    <p><span>Descripción:{antecedente.descripcion}</span> </p>
+                    <p><span>Descripción:</span> {antecedente.descripcion}</p>
                   </div>
 
                   <div className={styles.userImageContainer}><img src={userImage}></img></div>
