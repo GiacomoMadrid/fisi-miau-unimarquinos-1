@@ -3,6 +3,14 @@ import { useForm } from "react-hook-form";
 
 import styles from "./CrearAntecedentesPage.module.css";
 
+import { getAllAntecedentes } from "../../api/api";
+
+
+export async function loader(){
+  const antecedentes = (await getAllAntecedentes()).data;
+
+  return({antecedentes});
+}
 
 export function CrearAntecedentesPage() {
 

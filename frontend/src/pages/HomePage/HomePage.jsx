@@ -1,5 +1,5 @@
 import {Helmet} from "react-helmet";
-import {Link} from "react-router-dom";
+import {Link, useLoaderData} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import { useEffect, useState } from "react";
 
@@ -8,11 +8,19 @@ import styles from "./HomePage.module.css";
 
 import {Certificado} from "../../components/Certificado/Certificado";
 import {Antecedente} from "../../components/Antecedente/Antecedente";
-import {getAllAntecedentes,getAllCertificados,getAllTipoAntecedentes,getAllHistorialCertificados,getAllPersonas, getPersona} from "../../api/api.js";
+import {getAllAntecedentes,getAllCertificados,getAllTipoAntecedentes,getAllHistorialCertificados,getAllPersonas, getPersona, getAllUsuarios} from "../../api/api.js";
 import {getCertificado,getHistorialCertificado} from "../../api/api.js";
 
 
+export async function loader(){
+    const certificados= (await getAllCertificados()).data;
+
+    return({certificados});
+}
+
 export function HomePage(){
+
+    const dataApi=useLoaderData();
 
     const { register: registerFormDatosPersonales, handleSubmit: handleSubmitFormDatosPersonales } = useForm();
     const { register: registerFormAntecedente, handleSubmit: handleSubmitFormAntecedente } = useForm();
@@ -20,13 +28,6 @@ export function HomePage(){
     const [datosDisabled,setDatosDisabled]=useState([]);
     const [antecedentesDisabled,setAntecedentesDisabled]=useState([]);
     const [selectedOption, setSelectedOption] = useState("datosPersonales");
-    const[elementosMostrados,setElementosMostrados]=useState([]);
-
-    const [antecedentes,setAntecedentes]=useState([]);
-    const [certificados,setCertificados]=useState([]);
-    const [tipoAntecedentes,setTipoAntecedentes]=useState([]);
-    const [historialCertificados,setHistorialCertificados]=useState([]);
-    const [personas,setPersonas]=useState([]);
 
 
     useEffect(()=>{
@@ -41,71 +42,13 @@ export function HomePage(){
             }
         }
 
-        async function fetchData() {
-            try {
-                const antecedentesResponse = await getAllAntecedentes();
-                setAntecedentes(antecedentesResponse.data);
-
-                const certificadosResponse = await getAllCertificados();
-                setCertificados(certificadosResponse.data);
-
-                const tipoAntecedenteResponse=await getAllTipoAntecedentes();
-                setTipoAntecedentes(tipoAntecedenteResponse.data);
-
-                const historialCertificadosResponse=await getAllHistorialCertificados();
-                setHistorialCertificados(historialCertificadosResponse.data);
-
-                const personasResponse=await getAllPersonas();
-                setPersonas(personasResponse.data);
-
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        }
-
-        fetchData();
+        
         checkTipoBusqueda();
-        console.log(elementosMostrados);
 
 
-    },[selectedOption,elementosMostrados]);
+    },[selectedOption]);
 
     
-    const onSubmitFormDatosPersonales=handleSubmitFormDatosPersonales(async data=>{
-        
-        setElementosMostrados(certificados.filter(async (certificado)=>{
-            if(certificado.tipo==1){
-                
-                return true;
-                console.log(certificado);
-            }
-            else{
-                return false;
-            }
-            
-        }));
-        
-    });
-
-    const onSubmitFormAntecedente = handleSubmitFormAntecedente(async (data) => {
-        const personasFiltradas = personas.filter(persona => {
-            return Object.entries(data).every(([key, value]) => {
-                return value !== undefined &&value === persona[key];
-            });
-        });
-        console.log(personasFiltradas);
-    
-        const elementosMostrados = await Promise.all(antecedentes.map(async (antecedente) => {
-            const certificado=await getCertificado(antecedente.certificado);
-            const historial = await getHistorialCertificado(certificado.historial);
-            const persona = await getPersona(historial.duenno);
-            return personasFiltradas.find(personaFiltrada => personaFiltrada.numeroDocumento === persona.numeroDocumento);
-        }));
-    
-        setElementosMostrados(elementosMostrados.filter(Boolean)); // Filter out any undefined elements
-    });
-
-
     
     return(
         <>
@@ -189,7 +132,7 @@ export function HomePage(){
                     disabled={antecedentesDisabled}
                     ></input>
 
-                    <button type="submit" onClick={selectedOption=="antecedentes"?onSubmitFormAntecedente:onSubmitFormDatosPersonales}>Buscar</button>
+                    <button type="submit" >Buscar</button>
                 </aside>
 
                 <div className={styles.content}>
@@ -198,11 +141,7 @@ export function HomePage(){
                     </header>
                     
                     <div className={styles.items}>
-                        {elementosMostrados&&elementosMostrados.map(elementoMostrado=>(
-                            selectedOption=="antecedentes"?<Antecedente key={elementoMostrado.id} antecedente={elementoMostrado}></Antecedente>
-                            :<Certificado key={elementoMostrado.id} elementoMostrado={elementoMostrado}></Certificado>
-                        
-                        ))}
+                        <Certificado></Certificado>
                         
                         
                         <Link to="/login"><p className={styles.loginButtom}>Login</p></Link> 

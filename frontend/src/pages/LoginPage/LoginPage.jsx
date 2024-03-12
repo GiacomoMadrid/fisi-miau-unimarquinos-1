@@ -1,16 +1,42 @@
 import {Helmet} from "react-helmet";
-import {Link} from "react-router-dom";
+import {Link,useLoaderData, useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
 import styles from "./LoginPage.module.css";
 import Logo from "./images/logo.png";
 
+import { getAllUsuarios } from "../../api/api";
+
+
+
+
+
+export async function loader(){
+    const usuarios= (await getAllUsuarios()).data;
+    
+    console.log(usuarios);
+    return{usuarios};
+}
+
+
+
 export function LoginPage() {
 
+    const navigate=useNavigate();
+    const dataApi=useLoaderData();
     const {register,handleSubmit}=useForm();
 
-    const onSubmit=handleSubmit(data=>{
-        console.log(data);
+
+
+    const onLoginButtom=handleSubmit(dataForm=>{
+        const foundUser=dataApi.usuarios.find(user=>user.username==dataForm.username&&user.password==dataForm.password);
+
+        if(foundUser){
+            navigate(`/${foundUser.id}/antecedentes-registrados`);      
+        }
+        else{
+            alert("Usuario no válido");
+        }
     });
 
 
@@ -33,7 +59,7 @@ export function LoginPage() {
                             
                         </div>
 
-                        <form onSubmit={onSubmit}>
+                        <form onSubmit={onLoginButtom}>
                             <h1>Login</h1>
 
                             <input type="text" 
@@ -46,7 +72,7 @@ export function LoginPage() {
                             {...register("password",{required:true})}>
                             </input> 
 
-                            <Link to="/antecedentes-registrados"><button type="submit" className={styles.loginButtom}>Login</button></Link>
+                            <button type="submit" className={styles.loginButtom}>Login</button>
                         </form>
 
                     </div>

@@ -6,26 +6,16 @@ import styles from "./AntecedentesRegistradosPage.module.css";
 import {Antecedente} from "../../components/Antecedente/Antecedente";
 import { getAllAntecedentes } from "../../api/api";
 
+
+
+export async function loader(){
+    const antecedentes = (await getAllAntecedentes()).data;
+
+    return({antecedentes});
+}
+
 export function AntecedentesRegistradosPage() {
-    const [antecedentes,setAntecedentes]=useState([]);
 
-    useEffect(()=>{
-
-      async function fetchData() {
-          try {
-              const antecedentesResponse = await getAllAntecedentes();
-              setAntecedentes(antecedentesResponse.data);
-
-          } catch (error) {
-              console.error("Error fetching data:", error);
-          }
-      }
-
-      fetchData();
-
-
-
-  },[]);
 
 
     return (
@@ -35,9 +25,7 @@ export function AntecedentesRegistradosPage() {
         </Helmet>
         <div className={styles.contentContainer}>
           <div className={styles.content}>
-            {antecedentes.map(antecedente=>{
-              <Antecedente key={antecedente.id} antecedente={antecedente}></Antecedente>
-            })}
+            <Antecedente></Antecedente>
           </div>
         </div>
       </>

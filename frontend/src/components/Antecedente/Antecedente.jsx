@@ -2,14 +2,14 @@ import styles from "./Antecedente.module.css";
 
 import userImage from "../Certificado/images/userImage.svg";
 
-export function Antecedente({antecedente}) {
+export function Antecedente() {
 
     return (
       <>
         <div className={styles.antecedenteContainer}>
           <div className={styles.antecedente}>
               <div className={styles.encabezado}>
-                <p> {antecedente.nombre}/ {antecedente.fechaRegistro}</p>
+                <p> nombre/ fechaRegistro</p>
               </div>
               <div className={styles.contenido}>
 
@@ -21,7 +21,7 @@ export function Antecedente({antecedente}) {
                     <p><span>Primer apellido:</span> Jara</p>
                     <p><span>Segundo apellido:</span> Espinoza</p>
                     <p><span>Nombres: </span>Angela Lucia</p>
-                    <p><span>Descripción:</span> {antecedente.descripcion}</p>
+                    <p><span>Descripción:</span> descripcion</p>
                   </div>
 
                   <div className={styles.userImageContainer}><img src={userImage}></img></div>

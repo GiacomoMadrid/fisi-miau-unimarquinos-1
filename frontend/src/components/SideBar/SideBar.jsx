@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, Outlet, useParams} from "react-router-dom";
 import { useState } from "react";
 
 import actualizarCertificadosIcon from "./images/ActualizarCertificadosIcon.svg";
@@ -12,39 +12,41 @@ import styles from "./SideBar.module.css";
 
 export function SideBar() {
 
+    const {userID}=useParams();
     const [clickedItem, setClickedItem] = useState("antecedentes-registrados");
-    const handleClick = (item) => {
+
+    function handleClick (item) {
       setClickedItem(item);
     };
 
     return (
       <>
         <aside className={styles.sideBarContainer}>
-          <Link to="/perfil" onClick={() => handleClick("perfil")}>
+          <Link to={`/${userID}/perfil`} onClick={() => handleClick("perfil")}>
             <div className={clickedItem=="perfil"?styles.clickedDiv:""}>
               <img className={styles.firstImg} src={perfilIcon}></img>
               <span>Perfil</span>
             </div>
           </Link>
-          <Link to="/antecedentes-registrados" onClick={() => handleClick("antecedentes-registrados")}>
+          <Link to={`/${userID}/antecedentes-registrados`} onClick={() => handleClick("antecedentes-registrados")}>
             <div className={clickedItem=="antecedentes-registrados"?styles.clickedDiv:""}>
                 <img src={antecedentesRegistradosIcon}></img>
                 <span>Antecedentes <br/>registrados</span>
             </div>
           </Link>            
-          <Link to="/crear-antecedentes" onClick={() => handleClick("crear-antecedentes")}>
+          <Link to={`/${userID}/crear-antecedentes`} onClick={() => handleClick("crear-antecedentes")}>
             <div className={clickedItem=="crear-antecedentes"?styles.clickedDiv:""}>
               <img src={crearAntecedenteIcon}></img>
               <span>Crear <br/>Antecedente</span>
             </div>
           </Link>
-          <Link to="/actualizar-certificados" onClick={() => handleClick("actualizar-certificados")}>
+          <Link to={`/${userID}/actualizar-certificados`} onClick={() => handleClick("actualizar-certificados")}>
             <div className={clickedItem=="actualizar-certificados"?styles.clickedDiv:""}>
               <img src={actualizarCertificadosIcon}></img>
               <span>Actualizar <br/>Certificado</span>
             </div>
           </Link>
-          <Link to="/buscar" onClick={() => handleClick("buscar")}>
+          <Link to={`/${userID}/buscar`} onClick={() => handleClick("buscar")}>
             <div className={clickedItem=="buscar"?styles.clickedDiv:""}>
               <img src={buscarIcon}></img>
               <span>Buscar</span>
@@ -57,6 +59,8 @@ export function SideBar() {
           </Link>
           
         </aside>
+        
+        <Outlet></Outlet>
       </>
     )
   }

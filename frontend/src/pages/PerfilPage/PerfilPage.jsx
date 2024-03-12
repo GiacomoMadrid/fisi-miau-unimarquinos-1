@@ -4,6 +4,15 @@ import styles from "./PerfilPage.module.css";
 import userImage from "../../components/Certificado/images/userImage.svg";
 import logo from "../LoginPage/images/logo.png";
 
+import { getAllAntecedentes } from "../../api/api";
+
+
+export async function loader(){
+  const antecedentes = (await getAllAntecedentes()).data;
+
+  return({antecedentes});
+}
+
 export function PerfilPage() {
 
 

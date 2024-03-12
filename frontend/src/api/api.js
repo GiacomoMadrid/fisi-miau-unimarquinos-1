@@ -2,13 +2,13 @@ import axios from "axios";
 
 
 const usuarioApi=axios.create({
-    baseURL:"https://127.0.0.1:8000/api/Usuario/",
+    baseURL:"http://127.0.0.1:8000/api/Usuario/",
 });
 const paisApi=axios.create({
-    baseURL:"https://127.0.0.1:8000/api/Pais/",
+    baseURL:"http://127.0.0.1:8000/api/Pais/",
 });
 const nacionalidadApi=axios.create({
-    baseURL:"https://127.0.0.1:8000/api/Nacionalidad/",
+    baseURL:"http://127.0.0.1:8000/api/Nacionalidad/",
 });
 const personaApi=axios.create({
     baseURL:"http://127.0.0.1:8000/api/Persona/",
@@ -62,13 +62,13 @@ const antecedenteApi=axios.create({
     baseURL:"http://127.0.0.1:8000/antecedentes/Antecedente/",
 });
 const departamentoApi=axios.create({
-    baseURL:"https://127.0.0.1:8000/antecedentes/Departamento/",
+    baseURL:"http://127.0.0.1:8000/antecedentes/Departamento/",
 });
 const provinciaApi=axios.create({
-    baseURL:"https://127.0.0.1:8000/antecedentes/Provincia/",
+    baseURL:"http://127.0.0.1:8000/antecedentes/Provincia/",
 });
 const distritoApi=axios.create({
-    baseURL:"https://127.0.0.1:8000/antecedentes/Distrito/",
+    baseURL:"http://127.0.0.1:8000/antecedentes/Distrito/",
 });
 const tipoAntecedenteApi=axios.create({
     baseURL:"http://127.0.0.1:8000/antecedentes/TipoAntecedente/",

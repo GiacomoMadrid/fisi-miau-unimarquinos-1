@@ -2,6 +2,16 @@ import {Helmet} from "react-helmet";
 
 import styles from "./ActualizarCertificadosPage.module.css";
 
+import { getAllAntecedentes } from "../../api/api";
+
+
+export async function loader(){
+  const antecedentes = (await getAllAntecedentes()).data;
+
+  return({antecedentes});
+}
+
+
 export function ActualizarCertificadosPage() {
 
 
