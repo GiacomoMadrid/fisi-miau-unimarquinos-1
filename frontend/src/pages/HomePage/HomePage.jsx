@@ -8,26 +8,34 @@ import styles from "./HomePage.module.css";
 
 import {Certificado} from "../../components/Certificado/Certificado";
 import {Antecedente} from "../../components/Antecedente/Antecedente";
-import {getAllAntecedentes,getAllCertificados,getAllTipoAntecedentes,getAllHistorialCertificados,getAllPersonas, getPersona, getAllUsuarios} from "../../api/api.js";
-import {getCertificado,getHistorialCertificado} from "../../api/api.js";
+import {getAllAntecedentes,getAllCertificados, getAllHistorialCertificados, getAllPersonas, getDepartamento, getDistrito, getProvincia, getTipoAntecedente} from "../../api/api.js";
 
 
 export async function loader(){
     const certificados= (await getAllCertificados()).data;
+    const antecedentes=(await getAllAntecedentes()).data;
+    const personas=(await getAllPersonas()).data;
+    const historialCertificados=(await getAllHistorialCertificados()).data;
 
-    return({certificados});
+    return({historialCertificados,certificados,antecedentes,personas});
 }
+
+
 
 export function HomePage(){
 
     const dataApi=useLoaderData();
 
-    const { register: registerFormDatosPersonales, handleSubmit: handleSubmitFormDatosPersonales } = useForm();
-    const { register: registerFormAntecedente, handleSubmit: handleSubmitFormAntecedente } = useForm();
-
     const [datosDisabled,setDatosDisabled]=useState([]);
     const [antecedentesDisabled,setAntecedentesDisabled]=useState([]);
     const [selectedOption, setSelectedOption] = useState("datosPersonales");
+
+    const { register: registerFormDatosPersonales, handleSubmit: handleSubmitFormDatosPersonales } = useForm();
+    const { register: registerFormAntecedente, handleSubmit: handleSubmitFormAntecedente } = useForm();
+
+    const [certificadosMostrados,setCertificadosMostrados]=useState([]);
+    const [antecedentesMostrados,setAntecedentesMostrados]=useState([]);
+    
 
 
     useEffect(()=>{
@@ -45,11 +53,95 @@ export function HomePage(){
         
         checkTipoBusqueda();
 
+    },[selectedOption,certificadosMostrados]);
 
-    },[selectedOption]);
 
+
+    const onBuscarDatosPersonales=handleSubmitFormDatosPersonales(dataForm =>{
+        
+        const dataFormFiltrado= Object.entries(dataForm).filter(([,value])=>value!=undefined);
+        
+
+        const personasFiltradas=dataApi.personas.filter((persona)=>{
+            let totalCoincidence=true;
+
+            for(const [key,value]of dataFormFiltrado){
+                if(persona[key]!=value){
+                    totalCoincidence=false;
+                    break;
+                }
+            }
+            return totalCoincidence;
+        });
+
+
+
+        const certificadosFiltrados=[];
+        for (const persona of personasFiltradas){
+            const historialesFiltrados=dataApi.historialCertificados.filter(historial=>historial.duenno==persona.numeroDocumento);
+
+        
+            for(const historialFiltrado of historialesFiltrados){
+                dataApi.certificados.forEach(certificado=>{
+                    if(certificado.historial==historialFiltrado.id){
+                        certificadosFiltrados.push(certificado);  
+                    }
+                });             
+            }
+                
+            
+        }
+        setCertificadosMostrados(certificadosFiltrados);
+        
+    });
+
+    const onBuscarAntecedentes=handleSubmitFormAntecedente(async (dataForm)=>{
+        const antecedentesFiltrados=[];
+
+        const dataFormFiltrado= Object.entries(dataForm).filter(([,value])=>value!=undefined&&value!="");        
+        
+
+        for(const antecedente of dataApi.antecedentes){
+            let totalCoincidence=true;
+
+            const antecedenteObjeto={
+                "departamento":((await getDepartamento(antecedente.departamento)).data).nombre,
+                "provincia":((await getProvincia(antecedente.provincia)).data).nombre,
+                "distrito":((await getDistrito(antecedente.distrito)).data).nombre,
+                "fecha":antecedente.fechaRegistro,
+                "tipoAntecedente":((await getTipoAntecedente(antecedente.tipo)).data).nombre
+            }
+
+            for(const[key,value] of dataFormFiltrado){
+                if(key=="inicio-periodo"||key=="final-periodo"){
+                    const fechaInicio = new Date(dataFormFiltrado["inicio-periodo"]);
+                    const fechaFinal = new Date(dataFormFiltrado["final-periodo"]);
+                    const antecedenteFecha = new Date(antecedente.fechaRegistro);
+                    
+                    if (antecedenteFecha < fechaInicio || antecedenteFecha > fechaFinal) {
+                        totalCoincidence = false;
+                        break;
+                    }
+                }
+                else if(antecedenteObjeto[key]!=value){
+                    totalCoincidence=false;
+                    break;
+                }
+            }
+
+            if(totalCoincidence){
+                antecedentesFiltrados.push(antecedente);
+            }
+        }
+        console.log(antecedentesFiltrados);
+        setAntecedentesMostrados(antecedentesFiltrados);
+    });
     
     
+
+
+
+
     return(
         <>
             <Helmet>
@@ -126,13 +218,18 @@ export function HomePage(){
                         </input>
                     </div>
 
-                    <input type="text" 
-                    placeholder="Tipo de antecedente"
+                    <select type="text" 
                     {...registerFormAntecedente("tipoAntecedente")}
                     disabled={antecedentesDisabled}
-                    ></input>
+                    >
+                        <option value="">Tipo de antecedente</option>
+                        <option value="Antecedente Penal">Antecedente Penal</option>
+                        <option value="Antecedente Policial">Antecedente Policial</option>
+                        <option value="Antecedente Judicial">Antecedente Judicial</option>
 
-                    <button type="submit" >Buscar</button>
+                    </select>
+
+                    <button onClick={selectedOption=="datosPersonales"?onBuscarDatosPersonales:onBuscarAntecedentes} >Buscar</button>
                 </aside>
 
                 <div className={styles.content}>
@@ -141,7 +238,13 @@ export function HomePage(){
                     </header>
                     
                     <div className={styles.items}>
-                        <Certificado></Certificado>
+                        {selectedOption=="datosPersonales"? (
+                            certificadosMostrados.length!=0?certificadosMostrados.map(certificado=><Certificado key={certificado.id} objetoCertificado={certificado}></Certificado>)
+                            : <p>No hay resultados</p>   )
+                        
+                        :(antecedentesMostrados.length!=0?antecedentesMostrados.map(certificado=><Antecedente key={certificado.id} objetoAntecedente={certificado}></Antecedente>)
+                            : <p>No hay resultados</p>   )
+                        }
                         
                         
                         <Link to="/login"><p className={styles.loginButtom}>Login</p></Link> 

@@ -14,11 +14,12 @@
     right: -10px;
     top:-5px;
 }
-.fecha{
+.descripcion{
     color: var(--gris);
     margin-bottom: 1%;
 }
 .certificado h1{
+    margin-top: 5%;
     text-transform: uppercase;
     text-align: center;
     font-weight: bold;
