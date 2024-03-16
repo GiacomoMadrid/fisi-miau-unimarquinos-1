@@ -74,11 +74,11 @@ export function CrearAntecedentesPage() {
         departamento=(await crearDepartamento({"nombre":dataForm.departamento,"pais":1})).data; 
       }
       console.log(departamento);
-      let provincia =dataApi.provincias.find(provincia=>provincia.nombre==dataForm.provincia&&provincia.departamento==departamento.id)
+      let provincia =dataApi.provincias.find(provincia=>provincia.nombre==dataForm.provincia&&provincia.departamento==departamento.id);
       if(provincia==null){
         provincia=(await crearProvincia({"nombre":dataForm.provincia,"departamento":departamento.id})).data;
       }
-      let distrito =dataApi.distritos.find(distrito=>distrito.nombre==dataForm.distrito&&distrito.provincia==provincia.id)
+      let distrito =dataApi.distritos.find(distrito=>distrito.nombre==dataForm.distrito&&distrito.provincia==provincia.id);
       if(distrito==null){
         distrito=(await crearDistrito({"nombre":dataForm.distrito,"provincia":provincia.id})).data;
       }

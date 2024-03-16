@@ -1,5 +1,5 @@
 import styles from "./Certificado.module.css";
-import {getTipoCertificado,getHistorialCertificado,getPersona} from "../../api/api";
+import {getTipoCertificado,getHistorialCertificado,getPersona, getCertificado} from "../../api/api";
 import {getAllAntecedentes} from "../../api/api";
 
 import decoration from "./images/Decoration.svg";
@@ -23,7 +23,7 @@ export function Certificado({objetoCertificado}) {
 
   const dataApi=useLoaderData();
   const [certificado,setCertificado]=useState({});
-  const [antecedentesFiltrados,setAntecedentesFiltrados]=useState([]);
+  const [antecedentesMostrados,setAntecedentesMostrados]=useState([]);
 
 
   useEffect(()=>{
@@ -47,8 +47,20 @@ export function Certificado({objetoCertificado}) {
     };
 
 
-    function filterAntecedentes(){
-      setAntecedentesFiltrados(dataApi.antecedentes.filter(antecedente=>antecedente.certificado==objetoCertificado.id));
+    async function filterAntecedentes(){
+      const historialCertificadoActual=(await getHistorialCertificado(objetoCertificado.historial)).data;
+      const antecedentesFiltrados=[];
+
+      for(const antecedente of dataApi.antecedentes){
+        const certificado=(await getCertificado(antecedente.certificado)).data;
+        const historialCertificado=(await getHistorialCertificado(certificado.historial)).data;  
+
+        if(historialCertificadoActual.id==historialCertificado.id&&objetoCertificado.version>=certificado.version){
+          antecedentesFiltrados.push(antecedente);
+        }
+      }
+
+      setAntecedentesMostrados(antecedentesFiltrados);
     }
 
     fetchCertificadoData();
@@ -77,7 +89,7 @@ export function Certificado({objetoCertificado}) {
                 <div className={styles.userImageContainer}><img src={userImage}></img></div>
                 
               </div>
-              {antecedentesFiltrados.map(antecedente=><Antecedente key={antecedente.id} objetoAntecedente={antecedente}></Antecedente>)}
+              {antecedentesMostrados.map(antecedente=><Antecedente key={antecedente.id} objetoAntecedente={antecedente}></Antecedente>)}
               <p className={styles.infoAdicional}>Cambios realizados: {certificado.cambios}</p>
           </div> 
 
