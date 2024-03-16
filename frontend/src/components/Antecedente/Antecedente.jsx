@@ -58,7 +58,7 @@ export function Antecedente({objetoAntecedente}) {
                   <div className={styles.datos}>
                     <p className={styles.tipoAntecedente}>{antecedente.tipo}</p>
                     <p><span>Autor:</span> {antecedente.autorCargo} {antecedente.autorNombre}</p>
-                    <p><span>Lugar:</span> {antecedente.lugar}</p>
+                    <p><span>Lugar:</span> {antecedente.lugar} .</p>
                     <p><span>DNI/Carnet de extranjería:</span>{antecedente.numeroDocumento}</p>
                     <p><span>Primer apellido:</span> {antecedente.primerApellido}</p>
                     <p><span>Segundo apellido:</span> {antecedente.segundoApellido}</p>
