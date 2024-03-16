@@ -3,7 +3,7 @@ import { createBrowserRouter} from "react-router-dom";
 import {PerfilPage, loader as perfilLoader} from "./pages/PerfilPage/PerfilPage.jsx";
 import {ActualizarCertificadosPage, loader as actualizarCertificadosLoader} from "./pages/ActualizarCertificadosPage/ActualizarCertificadosPage.jsx";
 import {AntecedentesRegistradosPage, loader as antecedentesRegistradosLoader} from "./pages/AntecedentesRegistradosPage/AntecedentesRegistradosPage.jsx";
-import {BuscarPage, loader as buscarLoader} from "./pages/BuscarPage/BuscarPage.jsx";
+import {BuscarPage} from "./pages/BuscarPage/BuscarPage.jsx";
 import {CrearAntecedentesPage, loader as crearAntecedentesLoader} from "./pages/CrearAntecedentesPage/CrearAntecedentesPage.jsx";
 import {HomePage ,loader as homeLoader} from "./pages/HomePage/HomePage.jsx";
 import {LoginPage,loader as loginLoader} from "./pages/LoginPage/LoginPage.jsx";
@@ -50,7 +50,6 @@ export const router=createBrowserRouter([
       },
       {
         path:"/:userID/buscar",
-        loader:buscarLoader,
         element:<BuscarPage/>,
       }
     ]
