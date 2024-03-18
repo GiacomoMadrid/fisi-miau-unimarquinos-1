@@ -11,11 +11,7 @@ import { useLoaderData } from "react-router-dom";
 
 
 
-async function loader(){
-  const antecedentes=(await getAllAntecedentes()).data;
 
-  return({antecedentes});
-}
 
 
 

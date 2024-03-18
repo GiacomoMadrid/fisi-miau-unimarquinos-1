@@ -49,7 +49,7 @@ export function Antecedente({objetoAntecedente}) {
         <div className={styles.antecedenteContainer}>
           <div className={styles.antecedente}>
               <div className={styles.encabezado}>
-                <p> {antecedente.nombre}    /    {antecedente.fecha}</p>
+                <p> {"("}{objetoAntecedente.id}{")"}     {antecedente.nombre}    {"    /    "}    {antecedente.fecha}</p>
               </div>
               <div className={styles.contenido}>
 
